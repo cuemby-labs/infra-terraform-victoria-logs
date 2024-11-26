@@ -5,7 +5,7 @@
 variable "helm_release_name" {
   description = "The name of the Helm release."
   type        = string
-  default     = "victoria-metrics-logs"
+  default     = "victoria-logs-single"
 }
 
 variable "namespace_name" {
@@ -15,7 +15,7 @@ variable "namespace_name" {
 }
 
 variable "helm_chart_version" {
-  description = "The version of the ingress-nginx Helm chart."
+  description = "The version of the victoria-logs-single Helm chart."
   type        = string
   default     = "0.5.2"
 }
