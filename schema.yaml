@@ -1,16 +1,16 @@
 openapi: 3.0.3
 info:
-  title: OpenAPI schema for template .
+  title: OpenAPI schema for Victoria Single Logs template .
 components:
   schemas:
     variables:
       type: object
       properties:
-        helm_release_name:
-          title: Helm Release Name
+        release_name:
+          title: Release Name
           type: string
           description: The name of the Helm release.
-          default: victoria-metrics-logs
+          default: victoria-logs-single
           x-walrus-ui:
             group: Basic
             order: 1
@@ -22,14 +22,43 @@ components:
           x-walrus-ui:
             group: Basic
             order: 2
-        helm_chart_version:
-          title: Helm Chart Version
+        chart_version:
+          title: Chart Version
           type: string
-          description: The version of the ingress-nginx Helm chart.
-          default: 0.5.2
+          description: The version of the victoria-logs-single Helm chart.
+          default: 0.8.11
           x-walrus-ui:
             group: Basic
             order: 3
+        victoria_logs_image:
+          title: Victoria Logs Image
+          type: string
+          description: The victoria logs image version.
+          default: v0.15.0-victorialogs
+          x-walrus-ui:
+            group: Basic
+            order: 4
+        resources:
+          title: Resources
+          type: object
+          description: Resource limits and requests for the Helm release.
+          default:
+            limits:
+              cpu: 500m
+              memory: 512Mi
+            requests:
+              cpu: 250m
+              memory: 256Mi
+          additionalProperties:
+            additionalProperties:
+              type: string
+            type: object
+            x-walrus-ui:
+              colSpan: 12
+          x-walrus-ui:
+            colSpan: 12
+            group: Basic
+            order: 5
       x-walrus-ui:
         groupOrder:
         - Basic

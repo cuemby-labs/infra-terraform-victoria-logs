@@ -2,7 +2,7 @@
 # Victoria Metrics Variables
 #
 
-variable "helm_release_name" {
+variable "release_name" {
   description = "The name of the Helm release."
   type        = string
   default     = "victoria-logs-single"
@@ -14,10 +14,32 @@ variable "namespace_name" {
   default     = "victoria-system"
 }
 
-variable "helm_chart_version" {
+variable "chart_version" {
   description = "The version of the victoria-logs-single Helm chart."
   type        = string
-  default     = "0.5.2"
+  default     = "0.8.11"
+}
+
+variable "victoria_logs_image" {
+  description = "The victoria logs image version."
+  type        = string
+  default     = "v0.15.0-victorialogs"
+}
+
+variable "resources" {
+  description = "Resource limits and requests for the Helm release."
+  type        = map(map(string))
+
+  default = {
+    limits = {
+      cpu    = "500m"
+      memory = "512Mi"
+    }
+    requests = {
+      cpu    = "250m"
+      memory = "256Mi"
+    }
+  }
 }
 
 #
