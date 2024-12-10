@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  title: OpenAPI schema for Victoria Single Logs template .
+  title: OpenAPI schema for template .
 components:
   schemas:
     variables:
