@@ -18,14 +18,23 @@ resource "kubernetes_namespace" "victoria_system" {
 }
 
 resource "helm_release" "victoria_logs" {
-  name       = var.helm_release_name
+  name       = var.release_name
   namespace  = var.namespace_name
   repository = "https://victoriametrics.github.io/helm-charts/"
   chart      = "victoria-logs-single"
-  version    = var.helm_chart_version
-  values     = [file("${path.module}/values.yaml")]
+  version    = var.chart_version
 
-    depends_on = [kubernetes_namespace.victoria_system]
+  values = [
+    templatefile("${path.module}/values.yaml.tpl", {
+      victoria_logs_image = var.victoria_logs_image,
+      request_memory      = var.resources["requests"]["memory"],
+      limits_memory       = var.resources["limits"]["memory"],
+      request_cpu         = var.resources["requests"]["cpu"],
+      limits_cpu          = var.resources["limits"]["cpu"]
+    })
+  ]
+
+  depends_on = [kubernetes_namespace.victoria_system]
 }
 
 #
@@ -34,4 +43,10 @@ resource "helm_release" "victoria_logs" {
 
 locals {
   context = var.context
+}
+
+module "submodule" {
+  source = "./modules/submodule"
+
+  message = "Hello, submodule"
 }
